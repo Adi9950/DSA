@@ -1,0 +1,161 @@
+#include<iostream>
+using namespace std;
+struct node
+{
+	public:
+	node*left,*right;
+	int data;
+};
+class BST
+{
+	public:
+	node*temp,*temp1,*root,*nnode;
+	int i,j,n,key,flag;
+	BST()
+	{
+		root=NULL;
+	}
+	
+	void create()
+	{
+		cout<<"\nenter the number of data elements :";
+		cin>>n;
+		for(i=0;i<n;i++)
+		{
+			nnode=new node();
+			cout<<"\nenter data :";
+			cin>>nnode->data;
+			nnode->left=NULL;
+			nnode->right=NULL;
+			
+			if(root==NULL)
+			{
+				root=nnode;
+			}
+			else
+			{
+				temp=root;
+				while(1)
+				{
+	
+				if(nnode->data<temp->data)
+				{
+					if(temp->left==NULL)
+					{
+						temp->left=nnode;
+						break;
+					}
+					temp=temp->left;
+				}
+					else
+					{
+						if(temp->right==NULL)
+						{
+							temp->right=nnode;
+							break;
+						}
+						temp=temp->right;
+					}
+				}
+			}
+		}
+	}
+
+
+void display(node *temp)
+{
+	if(temp!=NULL)
+	{
+	display(temp->left);
+	cout<<temp->data<<" ";
+	display(temp->right);
+}
+}
+
+void findmin()
+{
+	temp=root;
+	while(temp->left!=NULL)
+	{
+		temp=temp->left;
+	}
+	cout<<"\nminimum value :"<<temp->data;
+}
+
+int height(node*temp)
+{
+	if(temp==NULL)
+	{
+		return -1;
+	}
+	else
+	{
+		int hl=height(temp->left);
+		int hr=height(temp->right);
+		int h=max(hl,hr)+1;
+		return h;
+    }
+}
+
+void search()
+{
+	cout<<"\nenter element you want to search :";
+	cin>>key;
+	temp=root;
+	flag=0;
+	while(temp!=NULL)
+	{
+		if(temp->data==key)
+		{
+			flag=1;
+			break;
+		}
+		
+		else if(temp->data<key)
+		{
+			temp=temp->right;
+		}
+		else
+		{
+			temp=temp->left;
+		}	
+	}
+	if(flag==1)
+	{
+		cout<<"\nkey found";
+	}
+	else
+	{
+		cout<<"\nkey not found";
+	}
+	
+}
+
+void mirror(node*temp)
+{
+	if(temp!=NULL)
+	{
+	
+	mirror(temp->left);
+	mirror(temp->right);
+	temp1=temp->left;
+	temp->left=temp->right;
+	temp->right=temp1;
+}
+}
+};
+
+int main()
+{
+	BST ob;
+	ob.create();
+	ob.display(ob.root);
+	ob.findmin();
+	ob.search();
+	cout<<"\nheight of tree is "<<ob.height(ob.root)<<endl;
+	ob.mirror(ob.root);
+	cout<<"\nmirroring :";
+	ob.display(ob.root);
+	return 0;
+}
+
