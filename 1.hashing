@@ -1,0 +1,106 @@
+#include<iostream>
+#include<string>
+using namespace std;
+struct person
+{
+	long int tel;
+	string name;
+};
+class database
+{
+	public:
+		person taldi[10],hash_table1[10],hash_table2[10],hash_table3[10];
+		int n,i,t;
+		string p;
+	void read()
+	{
+		cout<<"enter the numb of records do you want to enter:-\n";
+		cin>>n;
+		for(i=0;i<10;i++)
+		{
+		     hash_table1[i].name="NULL";
+		     hash_table1[i].tel=0;
+		     hash_table2[i].name="NULL";
+		     hash_table2[i].tel=0;
+		     hash_table3[i].name="NULL";
+		     hash_table3[i].tel=0;
+		}
+		for(i=0;i<n;i++)
+		{
+			cout<<"enter the record(name and tel no) of "<<i+1<<" person in table\n";
+			cin>>hash_table1[i].name;
+			cin>>hash_table1[i].tel;		
+		}	
+	}
+	void unhashShow()
+	{
+		cout<<"name\t\t\ttelNo.\n";
+		for(i=0;i<n;i++)
+		{
+			cout<<hash_table1[i].name<<"\t\t\t"<<hash_table1[i].tel<<"\n";
+		}
+	}
+	void Linearhashing()
+	{
+		for(i=0;i<n;i++)
+		{
+			int hash=hash_table1[i].tel%10;
+			while(hash_table2[hash].tel!=0)
+			{
+				hash=(hash+1)%10;
+		    }
+		    hash_table2[hash]= hash_table1[i];
+		    
+		    /*hash_table2[hash].name= hash_table1[i].name;
+		    hash_table2[hash].tel= hash_table1[i].tel;*/
+		    
+		}	
+	}
+	void Quadhashing()
+	{
+		for(i=0;i<n;i++)
+		{
+			int hash=hash_table1[i].tel%10;
+			int j=1;
+			while(hash_table3[hash].tel!=0)
+			{
+				hash=(hash+j*j)%10;
+				j++;
+		    }
+		    hash_table3[hash]= hash_table1[i];
+		    
+		    /*hash_table2[hash].name= hash_table1[i].name;
+		    hash_table2[hash].tel= hash_table1[i].tel;*/
+		    
+		}	
+	}
+	void linearhashShow()
+	{
+		cout<<"\nlinear probing\n";
+		cout<<"name\t\t\ttelNo.\n";
+		for(i=0;i<10;i++)
+		{
+			cout<<hash_table2[i].name<<"\t\t\t"<<hash_table2[i].tel<<"\n";
+		}
+    }
+    void QuadhashShow()
+	{
+		cout<<"\nQuadratic probing\n";
+		cout<<"name\t\t\ttelNo.\n";
+		for(i=0;i<10;i++)
+		{
+			cout<<hash_table3[i].name<<"\t\t\t"<<hash_table3[i].tel<<"\n";
+		}
+    }
+};
+int main()
+{
+	database d1;
+	d1.read();
+	d1.unhashShow();
+	d1.Linearhashing();
+	d1.linearhashShow();
+	d1.Quadhashing();
+	d1.QuadhashShow();
+	return 0;
+}
