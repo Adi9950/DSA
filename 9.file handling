@@ -1,0 +1,126 @@
+#include<iostream>
+#include<fstream>
+#include<string>
+using namespace std;
+
+class student {
+public:
+    int roll;
+    char div;
+    string name, add;
+
+    void read() {
+        cout << "\nEnter the name of student: ";
+        cin.ignore();
+        getline(cin, name);
+        cout << "Enter the roll no: ";
+        cin >> roll;
+        cout << "Enter the division: ";
+        cin >> div;
+        cin.ignore();
+        cout << "Enter the address: ";
+        getline(cin, add);
+    }
+
+    void display() {
+        cout << "\nName: " << name;
+        cout << "\nRoll no: " << roll;
+        cout << "\nDivision: " << div;
+        cout << "\nAddress: " << add;
+    }
+};
+
+int main() {
+    student s;
+    ofstream fout, temp;
+    ifstream fin;
+    char choice;
+    int ch, a, n, i;
+    int flag;
+
+    do {
+        cout << "\n1. Write data\n2. Append data\n3. Read data\n4. Search data\n5. Delete data";
+        cout << "\nEnter your choice: ";
+        cin >> ch;
+
+        switch (ch) {
+            case 1:
+                fout.open("student.txt", ios::out);
+                cout << "Enter the number of student records you want to write: ";
+                cin >> n;
+                for (i = 0; i < n; i++) {
+                    s.read();
+                    fout.write((char*)&s, sizeof(s));
+                }
+                fout.close();
+                break;
+
+            case 2:
+                fout.open("student.txt", ios::app);
+                s.read();
+                fout.write((char*)&s, sizeof(s));
+                fout.close();
+                break;
+
+            case 3:
+                cout << "\nReading data from file:\n";
+                fin.open("student.txt", ios::in);
+                while (fin.read((char*)&s, sizeof(s))) {
+                    s.display();
+                }
+                fin.close();
+                break;
+
+            case 4:
+                cout << "\nEnter roll no to search: ";
+                cin >> a;
+                flag = 0;
+                fin.open("student.txt", ios::in);
+                while (fin.read((char*)&s, sizeof(s))) {
+                    if (s.roll == a) {
+                        cout << "\nStudent roll no. found:";
+                        s.display();
+                        flag = 1;
+                        break;
+                    }
+                }
+                fin.close();
+                if (flag == 0) {
+                    cout << "\nStudent does not exist";
+                }
+                break;
+
+            case 5:
+                cout << "\nEnter the roll no to be deleted: ";
+                cin >> n;
+                flag = 0;
+                fin.open("student.txt", ios::in);
+                temp.open("temp.txt", ios::out);
+                while (fin.read((char*)&s, sizeof(s))) {
+                    if (s.roll == n) {
+                        cout << n << " is deleted successfully.";
+                        flag = 1;
+                        continue;
+                    }
+                    temp.write((char*)&s, sizeof(s));
+                }
+                fin.close();
+                temp.close();
+                remove("student.txt");
+                rename("temp.txt", "student.txt");
+                if (flag == 0) {
+                    cout << "\nRoll number does not exist";
+                }
+                break;
+
+            default:
+                cout << "\nInvalid choice!";
+        }
+
+        cout << "\nDo you want to continue (y/n)? ";
+        cin >> choice;
+
+    } while (choice == 'y' || choice == 'Y');
+
+    return 0;
+}
