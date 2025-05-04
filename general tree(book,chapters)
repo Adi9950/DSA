@@ -1,0 +1,82 @@
+#include<iostream>
+using namespace std;
+struct node
+{
+	public:
+	int count;
+	string name;
+	node*child[10];
+};
+class tree
+{
+	public:
+		node*root;
+		int i,j,k;
+		void create()
+		{
+			root=new node();
+			cout<<"\nenter name of book :";
+			cin>>root->name;
+			cout<<"\nenter the number of chapters in the book :";
+			cin>>root->count;
+			for(i=0;i<root->count;i++)
+			{
+				root->child[i]=new node();
+				cout<<"\nenter name of chapter :";
+				cin>>root->child[i]->name;
+				cout<<"\nenter the number of section in the book :";
+				cin>>root->child[i]->count;
+				for(j=0;j<root->child[i]->count;j++)
+				{
+					root->child[i]->child[j]=new node();
+					cout<<"\nenter the name of section :";
+					cin>>root->child[i]->child[j]->name;
+					
+					cout<<"\nenter the number of subsection :";
+					cin>>root->child[i]->child[j]->count;
+					for(k=0;k<root->child[i]->child[j]->count;k++)
+					{
+						root->child[i]->child[j]->child[k]=new node();
+						cout<<"\nenter the name of subsection :";
+						cin>>root->child[i]->child[j]->child[k]->name;
+					}
+				}
+			}
+			
+		}
+		
+		void display()
+		{
+			cout<<"\nname of book :";
+			cout<<root->name;
+			
+			cout<<"\nnumber of chapters :";
+			cout<<root->count;
+			
+			for(int i=0;i<root->count;i++)
+			{
+				cout<<"\n\tname of chapter :";
+				cout<<root->child[i]->name;
+				
+				for(int j=0;j<root->child[i]->count;j++)
+				{
+					cout<<"\n\t\tname of section :";
+					cout<<root->child[i]->child[j]->name;
+					
+					for(int k=0;k<root->child[i]->child[j]->count;k++)
+					{
+						cout<<"\n\t\t\tsubsection :";
+						cout<<root->child[i]->child[j]->child[k]->name;
+					}
+				}
+			}
+		}
+		
+};
+int main()
+{
+	tree ob;
+	ob.create();
+	ob.display();
+	return 0;
+}
