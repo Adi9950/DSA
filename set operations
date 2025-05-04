@@ -1,0 +1,238 @@
+#include<iostream>
+using namespace std;
+class array
+{
+	public:
+	int A[20],B[20],C[20],i,j,n,m,key,flag;
+	void read()
+	{
+		cout<<"\n enter the no.of element of 1st array:";
+		cin>>m;
+		cout<<"\n enter the no.of element of 2nd array:";
+		cin>>n;
+		cout<<"\n enter element of 1st array:";
+		for(i=0;i<m;i++)
+		{
+			cin>>A[i];
+		}
+		cout<<"\n enter element of 2nd array:";
+		for(i=0;i<n;i++)
+		{
+			cin>>B[i];
+		}
+	}
+	void display()
+	{
+		cout<<"\n element of 1st array:";
+		for(i=0;i<m;i++)
+		{
+			cout<<A[i]<<" ";
+		}
+		cout<<"\n element of 2nd array:";
+		for(i=0;i<n;i++)
+		{
+			cout<<B[i]<<" ";
+		}
+	}
+	void add()
+	{
+		cout<<"\n enter the element to add:";
+		cin>>key;
+		flag=0;
+		for(i=0;i<m;i++)
+		{
+			if(A[i]==key)
+			{
+				flag=1;
+				break;
+			}
+		}
+		if(flag==1)
+		{
+			cout<<"\n Can't add the element as it already exists";
+		}
+		else
+		{
+			A[m]=key;
+			cout<<"\n element added successfully";
+		}
+		m++;
+	}
+	void remove()
+	{
+		int g=-1;
+		cout<<"\n enter element to delete:";
+		cin>>key;
+		for(i=0;i<m;i++)
+		{
+			if(A[i]==key)
+			{
+				g=i;
+				break;
+			}
+		}
+		if(g==-1)
+		{
+			cout<<"\n element not present";
+		}
+		else
+		{
+			for(i=g;i<m-1;i++)
+			{
+				A[i]=A[i+1];
+			}
+			m--;
+			cout<<"\n element deleted successfully";
+		}
+	}
+	void search()
+	{
+		cout<<"\n enter element to search:";
+		cin>>key;
+		flag=0;
+		for(i=0;i<m;i++)
+		{
+			if(A[i]==key)
+			{
+				flag=1;
+				break;
+			}
+		}
+		if(flag==1)
+		{
+			cout<<"\n TRUE";
+		}
+		else
+		{
+			cout<<"\n FALSE";
+		}
+	}
+	void intersection()
+	{
+		int k=0;
+		for(i=0;i<m;i++)
+		{
+			flag=0;
+		     for(j=0;j<n;j++)
+			 {
+			 	if(A[i]==B[j])
+			 	{
+			 		C[k]=A[i];
+			 		k++;
+				 }
+			 }	
+		}
+		if(k==0)
+		{
+			cout<<"\n no common elements";
+		}
+		else
+		{
+			cout<<"\n Intersection:";
+			for(i=0;i<k;i++)
+			{
+				cout<<C[i]<<" ";
+			}
+		}
+	}
+	void Union()
+	{
+		int k=0;
+		for(i=0;i<m;i++)
+		{
+			C[k]=A[i];
+			k++;
+		}
+		for(j=0;j<n;j++)
+		{
+			flag=0;
+			for(i=0;i<k;i++)
+			{
+				if(B[j]==C[i])
+				{
+					flag=1;
+					break;
+				}
+			}
+			if(flag==0)
+			{
+				C[k]=B[j];
+				k++;
+			}
+		}
+		cout<<"\n Union:";
+		for(i=0;i<k;i++)
+		{
+			cout<<C[i]<<" ";
+		}
+	}
+	void subset()
+	{
+		for(i=0;i<m;i++)
+		{
+			flag=0;
+			for(j=0;j<n;j++)
+			{
+				if(A[i]==B[j])
+				{
+					flag=1;
+					break;
+				}
+				if(flag==0)
+				{
+					break;
+				}
+			}
+		}
+		if(flag==0)
+		{
+			cout<<"\n A is not subset of B";
+		}
+		else
+		{
+			cout<<"\n A is subset of B";
+		}
+	}
+	void diff()
+	{
+		int k=0;
+		for(i=0;i<m;i++)
+		{
+			flag=0;
+			for(j=0;j<n;j++)
+			{
+				if(A[i]==B[j])
+				{
+					flag=1;
+					break;
+				}
+			}
+			if(flag==0)
+			{
+				C[k]=A[i];
+				k++;
+			}
+		}
+		cout<<"\n Difference:";
+		for(i=0;i<k;i++)
+		{
+			cout<<C[i]<<" ";
+		}
+	}
+};
+int main()
+{
+	array ob;
+	ob.read();
+	ob.display();
+	ob.add();
+	ob.display();
+	ob.remove();
+	ob.display();
+	ob.search();
+	ob.intersection();
+	ob.Union();
+	ob.subset();
+	ob.diff();
+	return 0;
+}
