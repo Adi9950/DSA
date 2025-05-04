@@ -1,0 +1,111 @@
+#include<iostream>
+using namespace std;
+class heap
+{
+	public:
+			int marks[10];
+			int n;
+			int largest;
+			int l;
+			int r;
+		heap()
+		{
+			
+		    cout<<"enter the number of student:-";
+			cin>>n;
+			cout<<"\nenter the marks:-";
+			for(int i=0;i<n;i++)
+			{
+				cin>>marks[i];
+				
+			}
+			for(int i=0;i<n;i++)
+			{
+				
+				cout<<marks[i]<<" ";
+			}
+		};
+		void heapmax()
+		{		
+			for(int j=n/2-1;j>=0;j--)
+			{
+				int i=j;
+				while(true)
+				{
+					largest=i;
+					l=2*i+1;
+					r=2*i+2;
+					if(l<n&&marks[largest]<marks[l])
+					{
+						largest=l;
+					}
+					if(r<n&&marks[largest]<marks[r])
+					{
+						largest=r;
+					}
+					if(largest!=i)
+					{
+						swap(marks[i],marks[largest]);
+					}
+					else
+					{
+						break;
+					}
+				}
+				
+				
+			}
+			cout<<"\nmax heap is: ";
+			for(int j=0;j<n;j++)
+			{
+				cout<<marks[j]<<" ";
+			}
+			cout<<"\nmax marks obtend is: ";
+			cout<<marks[0];
+			
+		}
+		void heapmin()
+		{		
+			for(int j=n/2-1;j>=0;j--)
+			{
+				int i=j;
+				while(true)
+				{
+					largest=i;
+					l=2*i+1;
+					r=2*i+2;
+					if(l<n&&marks[largest]>marks[l])
+					{
+						largest=l;
+					}
+					if(r<n&&marks[largest]>marks[r])
+					{
+						largest=r;
+					}
+					if(largest!=i)
+					{
+						swap(marks[i],marks[largest]);
+					}
+					else
+					{
+						break;
+					}
+				}
+				
+				
+			}
+			cout<<"\nmin heap is: ";
+			for(int j=0;j<n;j++)
+			{
+				cout<<marks[j]<<" ";
+			}
+			cout<<"\nmin marks obtend is: ";
+			cout<<marks[0];
+}
+};
+int main()
+{
+	heap h;
+	h.heapmax();
+	h.heapmin();
+}
